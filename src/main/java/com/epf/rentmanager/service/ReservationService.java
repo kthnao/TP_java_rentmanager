@@ -14,22 +14,17 @@ import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.exception.DaoException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReservationService {
     private ReservationDao reservationDao;
-    public static ReservationService instance;
 
     private ReservationService() {
-        this.reservationDao = ReservationDao.getInstance();
+        this.reservationDao = reservationDao;
     }
 
-    public static ReservationService getInstance() {
-        if (instance == null) {
-            instance = new ReservationService();
-        }
 
-        return instance;
-    }
 
     public long create(Reservation reservation) throws ServiceException {
         if (reservation.clientId() == 0 || reservation.vehiculeId() == 0) {

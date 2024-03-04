@@ -16,8 +16,15 @@ import java.util.Optional;
 
 public class CliRequest {
 
+    /*
 private static final ClientService clientService = ClientService.getInstance();
 private static final VehicleService vehicleService = VehicleService.getInstance();
+
+AnnotationConfigApplicationContext(AppConfiguration.class);
+ClientService clientService = context.getBean(ClientService.class);
+VehicleService vehicleService = context.getBean(VehicleService.class);
+ReservationService reservationService = context.getBean(ReservationService.class);
+
 
 
     public static void main(String[] args) throws ServiceException {
@@ -186,6 +193,6 @@ private static final VehicleService vehicleService = VehicleService.getInstance(
         }
 
 
-    }
+    }*/
 }
 
