@@ -1,5 +1,6 @@
 package com.epf.rentmanager.ui.cli;
 
+import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
@@ -16,11 +17,11 @@ import java.util.Optional;
 
 public class CliRequest {
 
-    /*
-private static final ClientService clientService = ClientService.getInstance();
-private static final VehicleService vehicleService = VehicleService.getInstance();
-
-AnnotationConfigApplicationContext(AppConfiguration.class);
+/*
+//private static final ClientService clientService = ClientService.getInstance();
+//private static final VehicleService vehicleService = VehicleService.getInstance();
+    ApplicationContext context = new
+    AnnotationConfigApplicationContext(AppConfiguration .class);
 ClientService clientService = context.getBean(ClientService.class);
 VehicleService vehicleService = context.getBean(VehicleService.class);
 ReservationService reservationService = context.getBean(ReservationService.class);
