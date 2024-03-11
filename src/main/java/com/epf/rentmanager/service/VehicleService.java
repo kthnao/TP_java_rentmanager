@@ -18,8 +18,8 @@ public class VehicleService {
 
 	private VehicleDao vehicleDao;
 
-	private VehicleService() {
-		this.vehicleDao =vehicleDao;
+	private VehicleService(VehicleDao vehicleDao) {
+		this.vehicleDao = vehicleDao;
 	}
 
 

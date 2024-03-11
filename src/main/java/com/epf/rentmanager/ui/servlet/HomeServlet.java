@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+public class  HomeServlet extends HttpServlet {
 
 	/**
 	 * 
