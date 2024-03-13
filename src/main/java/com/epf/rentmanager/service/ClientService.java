@@ -59,5 +59,13 @@ public class ClientService {
 			throw new ServiceException("Erreur lors de la suppression du client: " + e.getMessage());
 		}
 	}
+
+	public int count() throws ServiceException {
+		try {
+			return clientDao.count();
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors du comptage des véhicules: " + e.getMessage());
+		}
+	}
 	
 }

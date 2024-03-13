@@ -24,11 +24,11 @@ public class ReservationListServlet extends HttpServlet {
      */
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        VehicleService vehicleService = VehicleService.getInstance();
+        ReservationService reservationService = ReservationService.getInstance();
         List<Reservation> reservations = new ArrayList<Reservation>();
 
         try {
-            reservations = ReservationService.getInstance().findAll();
+            reservations = reservationService.findAll();
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }

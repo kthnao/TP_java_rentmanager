@@ -37,7 +37,7 @@ public class VehicleCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        VehicleService vehicleService = VehicleService.getInstance();
         Vehicle vehicle = new Vehicle(
                 0L,
                 req.getParameter("manufacturer"),
