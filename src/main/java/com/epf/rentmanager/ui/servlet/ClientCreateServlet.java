@@ -7,6 +7,7 @@ import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
+
 
 @WebServlet("/users/create")
 public class ClientCreateServlet extends HttpServlet {
@@ -35,6 +36,9 @@ public class ClientCreateServlet extends HttpServlet {
                 req.getParameter("last_name"),
                 req.getParameter("first_name"),
                 req.getParameter("email"),
+                LocalDate.parse(req.getParameter("birthdate"))
+
+
 
 
         );
@@ -43,7 +47,6 @@ public class ClientCreateServlet extends HttpServlet {
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        resp.sendRedirect(req.getContextPath() + "/cars/create");
+        resp.sendRedirect(req.getContextPath() + "/users/create");
     }
 }
-*/

@@ -96,5 +96,12 @@ public class ReservationService {
             throw new ServiceException("Erreur lors de la suppression de la réservation: " + e.getMessage());
         }
     }
+    public int count() throws ServiceException {
+        try {
+            return reservationDao.count();
+        } catch (DaoException e) {
+            throw new ServiceException("Erreur lors du comptage des véhicules: " + e.getMessage());
+        }
+    }
 
 }

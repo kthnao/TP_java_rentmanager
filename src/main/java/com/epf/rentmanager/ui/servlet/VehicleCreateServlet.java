@@ -27,7 +27,7 @@ public class VehicleCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        VehicleService vehicleService = VehicleService.getInstance();
         Vehicle vehicle = new Vehicle(
                 0L,
                 req.getParameter("manufacturer"),
@@ -35,7 +35,7 @@ public class VehicleCreateServlet extends HttpServlet {
                 Integer.parseInt(req.getParameter("seats"))
         );
         try {
-            VehicleService.getInstance().create(vehicle);
+            vehicleService.create(vehicle);
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }

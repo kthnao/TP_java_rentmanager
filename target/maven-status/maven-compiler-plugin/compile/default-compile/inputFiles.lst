@@ -1,7 +1,9 @@
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ReservationDao.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Vehicle.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\exception\DaoException.java
+C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\servlet\ReservationListServlet.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Client.java
+C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\servlet\ClientCreateServlet.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\exception\ServiceException.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ClientDao.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\CliRequest.java
@@ -11,6 +13,8 @@ C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\ma
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ClientService.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\FillDatabase.java
+C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\servlet\ReservationCreateServlet.java
+C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\servlet\ClientListServlet.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\servlet\HomeServlet.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Reservation.java
 C:\Users\MSI\Desktop\4A EPF\java\Cours 4-20240212\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\servlet\VehicleCreateServlet.java

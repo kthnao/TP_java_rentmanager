@@ -21,11 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ClientListServlet extends HttpServlet{
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        VehicleService vehicleService = VehicleService.getInstance();
+        ClientService clientService = ClientService.getInstance();
         List<Client> clients = new ArrayList<Client>();
 
         try {
-            clients = ClientService.getInstance().findAll();
+            clients = clientService.findAll();
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
