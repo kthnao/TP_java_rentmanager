@@ -38,9 +38,6 @@ public class ClientCreateServlet extends HttpServlet {
                 req.getParameter("email"),
                 LocalDate.parse(req.getParameter("birthdate"))
 
-
-
-
         );
         try {
             ClientService.getInstance().create(client);
