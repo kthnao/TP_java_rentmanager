@@ -37,14 +37,14 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 		
 	public long create(Reservation reservation) throws DaoException {
-		if(reservation.clientId() == 0 || reservation.vehiculeId() == 0) {
+		if(reservation.client_id() == 0 || reservation.vehicle_id() == 0) {
 			throw new DaoException("Le client et le véhicule sont obligatoires");
 		}
 		try(Connection connection = ConnectionManager.getConnection();
 			PreparedStatement stmt = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
 		) {
-			stmt.setLong(1, reservation.clientId());
-			stmt.setLong(2, reservation.vehiculeId());
+			stmt.setLong(1, reservation.client_id());
+			stmt.setLong(2, reservation.vehicle_id());
 			stmt.setDate(3, Date.valueOf(reservation.debut()));
 			stmt.setDate(4, Date.valueOf(reservation.fin()));
 			stmt.execute();
@@ -82,8 +82,8 @@ public class ReservationDao {
 			while(res.next()) {
 				Reservation reservation = new Reservation(
 						id,
-						res.getLong("clientId"),
-						res.getLong("vehicleId"),
+						res.getLong("client_id"),
+						res.getLong("vehicle_id"),
 						res.getDate("debut").toLocalDate(),
 						res.getDate("fin").toLocalDate()
 				);
@@ -107,7 +107,7 @@ public class ReservationDao {
 				Reservation reservation = new Reservation(
 						res.getLong("id"),
 						clientId,
-						res.getLong("vehicleId"),
+						res.getLong("vehicle_id"),
 						res.getDate("debut").toLocalDate(),
 						res.getDate("fin").toLocalDate()
 				);
@@ -130,7 +130,7 @@ public class ReservationDao {
 			while(res.next()) {
 				Reservation reservation = new Reservation(
 						res.getLong("id"),
-						res.getLong("clientId"),
+						res.getLong("client_id"),
 						vehicleId,
 						res.getDate("debut").toLocalDate(),
 						res.getDate("fin").toLocalDate()
@@ -154,8 +154,8 @@ public class ReservationDao {
 			while(res.next()) {
 				Reservation reservation = new Reservation(
 						res.getLong("id"),
-						res.getLong("clientId"),
-						res.getLong("vehicleId"),
+						res.getLong("client_id"),
+						res.getLong("vehicle_id"),
 						res.getDate("debut").toLocalDate(),
 						res.getDate("fin").toLocalDate()
 				);
