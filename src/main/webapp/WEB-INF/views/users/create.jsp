@@ -31,14 +31,14 @@
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                                        <input type="text" class="form-control" id="nom" name="last_name" placeholder="Nom">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prenom">
+                                        <input type="text" class="form-control" id="prenom" name="first_name" placeholder="Prenom">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -53,7 +53,7 @@
                                     <label for="birthdate" class="col-sm-2 control-label">Naissance</label>
 
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control" id="naissance" name="naissance" placeholder="Naissance">
+                                        <input type="date" class="form-control" id="naissance" name="birthdate" placeholder="Naissance">
                                     </div>
                                 </div>
 
