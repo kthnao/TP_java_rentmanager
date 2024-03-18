@@ -27,7 +27,7 @@ public class ReservationService {
 
 
     public long create(Reservation reservation) throws ServiceException {
-        if (reservation.clientId() == 0 || reservation.vehiculeId() == 0) {
+        if (reservation.client_id() == 0 || reservation.vehicle_id() == 0) {
             throw new ServiceException("Le client et le véhicule sont obligatoires");
         }
         try {

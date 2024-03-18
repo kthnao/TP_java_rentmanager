@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-public record Reservation(long id, long clientId, long vehiculeId, LocalDate debut, LocalDate fin) {
+public record Reservation(long id, long client_id, long vehicle_id, LocalDate debut, LocalDate fin) {
 
 
 }

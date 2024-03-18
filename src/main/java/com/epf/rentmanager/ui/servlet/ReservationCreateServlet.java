@@ -8,8 +8,10 @@ import com.epf.rentmanager.service.VehicleService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,13 +32,14 @@ public class ReservationCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        formatter = formatter.withLocale(Locale.FRANCE);
         Reservation reservation = new Reservation(
                 0L,
-                Long.parseLong(req.getParameter("client_id")),
-                Long.parseLong(req.getParameter("vehicle_id")),
-                LocalDate.parse(req.getParameter("start_date")),
-                LocalDate.parse(req.getParameter("end_date"))
+                Long.parseLong(req.getParameter("car")),
+                Long.parseLong(req.getParameter("client")),
+                LocalDate.parse(req.getParameter("begin"),formatter),
+                LocalDate.parse(req.getParameter("end"),formatter)
         );
         try {
             ReservationService.getInstance().create(reservation);
