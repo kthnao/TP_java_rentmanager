@@ -8,8 +8,10 @@ import com.epf.rentmanager.service.VehicleService;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,13 +32,14 @@ public class ClientCreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        formatter = formatter.withLocale(Locale.FRANCE);
         Client client = new Client(
                 0L,
                 req.getParameter("last_name"),
                 req.getParameter("first_name"),
                 req.getParameter("email"),
-                LocalDate.parse(req.getParameter("birthdate"))
+                LocalDate.parse(req.getParameter("birthdate"),formatter)
 
         );
         try {

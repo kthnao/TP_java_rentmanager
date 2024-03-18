@@ -35,26 +35,26 @@
                                     <th>Action</th>
                                 </tr>
                                 <tr>
-                                   <c:forEach items="${clients}" var="client">
-                                                                       <td>${client.id()}.</td>
-                                                                       <td>${client.last_name()}</td>
-                                                                       <td>${client.first_name()}</td>
-                                                                       <td>${client.email()}</td>
-                                                                       <td>${client.birthdate()}</td>
-                                                                       <!--<td>John Doe</td>-->
-                                                                       <td>
-                                                                           <a class="btn btn-primary disabled" href="car-detail.html">
-                                                                               <i class="fa fa-play"></i>
-                                                                           </a>
-                                                                           <a class="btn btn-success disabled" href="#">
-                                                                               <i class="fa fa-edit"></i>
-                                                                           </a>
-                                                                           <a class="btn btn-danger disabled" href="#">
-                                                                               <i class="fa fa-trash"></i>
-                                                                           </a>
-                                                                       </td>
-                                                                   </tr>
-                                                                   </c:forEach>
+                                   <c:forEach items="${users}" var="client">
+                                                   <td>${client.id()}.</td>
+                                                   <td>${client.nom()}</td>
+                                                   <td>${client.prenom()}</td>
+                                                   <td>${client.email()}</td>
+                                                   <td>${client.naissance()}</td>
+
+                                                   <td>
+                                                       <a class="btn btn-primary disabled" href="#">
+                                                           <i class="fa fa-play"></i>
+                                                       </a>
+                                                       <a class="btn btn-success disabled" href="#">
+                                                           <i class="fa fa-edit"></i>
+                                                       </a>
+                                                       <a class="btn btn-danger disabled" href="#">
+                                                           <i class="fa fa-trash"></i>
+                                                       </a>
+                                                   </td>
+                                               </tr>
+                                    </c:forEach>
                             </table>
                         </div>
                         <!-- /.box-body -->

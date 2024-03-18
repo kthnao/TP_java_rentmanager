@@ -37,10 +37,10 @@
                                 <tr>
 <c:forEach items="${reservations}" var="reservation">
                                     <td>${reservation.id()}.</td>
-                                    <td>${reservation.client_id()}</td>
-                                    <td>${reservation.vehicle_id()}</td>
-                                    <td>${reservation.start_date()}</td>
-                                    <td>${reservation.end_date()}</td>
+                                    <td>${reservation.clientId()}</td>
+                                    <td>${reservation.vehicleId()}</td>
+                                    <td>${reservation.debut()}</td>
+                                    <td>${reservation.fin()}</td>
                                     <!--<td>John Doe</td>-->
                                     <td>
                                         <a class="btn btn-primary disabled" href="car-detail.html">
