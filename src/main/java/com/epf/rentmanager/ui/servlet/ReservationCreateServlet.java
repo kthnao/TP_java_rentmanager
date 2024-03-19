@@ -1,8 +1,10 @@
 package com.epf.rentmanager.ui.servlet;
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 
@@ -41,6 +43,7 @@ public class ReservationCreateServlet extends HttpServlet {
                 LocalDate.parse(req.getParameter("begin"),formatter),
                 LocalDate.parse(req.getParameter("end"),formatter)
         );
+
         try {
             ReservationService.getInstance().create(reservation);
         } catch (ServiceException e) {

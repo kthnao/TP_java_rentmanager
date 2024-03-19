@@ -41,7 +41,6 @@
                                     <td>${reservation.client_id()}</td>
                                     <td>${reservation.debut()}</td>
                                     <td>${reservation.fin()}</td>
-                                    <!--<td>John Doe</td>-->
                                     <td>
                                         <a class="btn btn-primary disabled" href="car-detail.html">
                                             <i class="fa fa-play"></i>

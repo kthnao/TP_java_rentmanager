@@ -34,9 +34,12 @@
                                         <select class="form-control" id="car" name="car">
                                             <option value="1">Renault Clio</option>
                                             <option value="2">Citroen C2</option>
+
                                         </select>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group">
                                     <label for="client" class="col-sm-2 control-label">Client</label>
 
@@ -47,6 +50,7 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
