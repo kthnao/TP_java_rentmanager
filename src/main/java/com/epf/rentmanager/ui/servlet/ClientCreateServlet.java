@@ -5,6 +5,8 @@ import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -23,6 +25,15 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/users/create")
 public class ClientCreateServlet extends HttpServlet {
+
+    @Autowired
+    ClientService clientService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -43,7 +54,7 @@ public class ClientCreateServlet extends HttpServlet {
 
         );
         try {
-            ClientService.getInstance().create(client);
+            clientService.create(client);
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }

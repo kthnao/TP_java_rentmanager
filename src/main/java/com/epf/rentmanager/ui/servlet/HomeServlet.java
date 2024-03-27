@@ -2,6 +2,7 @@ package com.epf.rentmanager.ui.servlet;
 
 import java.io.IOException;
 
+import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
@@ -22,6 +23,9 @@ public class  HomeServlet extends HttpServlet {
 	 */
 	@Autowired
 	VehicleService vehicleService;
+	ClientService clientService;
+	ReservationService reservationService;
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -33,14 +37,12 @@ public class  HomeServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+			request.setAttribute("vehicleCount",this.vehicleService.count());
+			//request.setAttribute("userCount", this.clientService.count());
+			//request.setAttribute("rentCount", this.reservationService.count());
 
-			request.setAttribute("vehicleCount",VehicleService.getInstance().count());
-			request.setAttribute("userCount", ClientService.getInstance().count());
-			request.setAttribute("rentCount", ReservationService.getInstance().count());
-			request.setAttribute("vehicleCount",vehicleService.count());
-
-		} catch (Exception e) {
-			throw new ServletException(e.getMessage());
+		} catch (ServiceException e) {
+			e.printStackTrace();
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
 	}

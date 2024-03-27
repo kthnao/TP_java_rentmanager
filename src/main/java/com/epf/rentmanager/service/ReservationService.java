@@ -20,13 +20,14 @@ import org.springframework.stereotype.Service;
 public class ReservationService {
     private ReservationDao reservationDao;
 
-    private ReservationService() {
-        this.reservationDao = reservationDao;
-    }
+    private ReservationService(ReservationDao reservationDao){
+    this.reservationDao = reservationDao;
+}
 
 
 
-    public long create(Reservation reservation) throws ServiceException {
+
+public long create(Reservation reservation) throws ServiceException {
         if (reservation.client_id() == 0 || reservation.vehicle_id() == 0) {
             throw new ServiceException("Le client et le véhicule sont obligatoires");
         }
