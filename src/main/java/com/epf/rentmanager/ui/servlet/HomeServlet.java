@@ -23,7 +23,9 @@ public class  HomeServlet extends HttpServlet {
 	 */
 	@Autowired
 	VehicleService vehicleService;
+	@Autowired
 	ClientService clientService;
+	@Autowired
 	ReservationService reservationService;
 
 	@Override
@@ -38,8 +40,9 @@ public class  HomeServlet extends HttpServlet {
 
 		try {
 			request.setAttribute("vehicleCount",this.vehicleService.count());
-			//request.setAttribute("userCount", this.clientService.count());
-			//request.setAttribute("rentCount", this.reservationService.count());
+			request.setAttribute("userCount",this.clientService.count());
+			request.setAttribute("rentCount",this.reservationService.count());
+
 
 		} catch (ServiceException e) {
 			e.printStackTrace();
