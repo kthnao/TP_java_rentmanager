@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -127,6 +128,30 @@ public class ClientDao {
 			throw new DaoException("Erreur lors de la récupération des véhicules: " + e.getMessage());
 		}
 	}
+
+	public boolean estMajeur(Client client) throws DaoException {
+		try {
+			return ChronoUnit.YEARS.between(client.naissance(), LocalDate.now()) >= 18;
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la vérification de la majorité: " + e.getMessage());
+		}
+	}
+	public List<String> getAllEmail() throws DaoException {
+		List<String> emails = new ArrayList<>();
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement stmt = connection.prepareStatement(FIND_CLIENTS_QUERY);
+		){
+			stmt.execute();
+			ResultSet res = stmt.getResultSet();
+			while(res.next()) {
+				emails.add(res.getString("email"));
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Erreur lors de la récupération des emails: " + e.getMessage());
+		}
+		return emails;
+	}
+
 
 }
 

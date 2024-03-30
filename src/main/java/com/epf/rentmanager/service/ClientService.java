@@ -70,9 +70,28 @@ public class ClientService {
 		}
 	}
 
-	public boolean estMajeur(Client client) {
-		return ChronoUnit.YEARS.between(client.naissance(), LocalDate.now()) >= 18;
+	public boolean estMajeur(Client client) throws ServiceException{
+		try {
+			return clientDao.estMajeur(client);
+		} catch (Exception e) {
+			throw new ServiceException("Erreur lors de la vérification de la majorité: " + e.getMessage());
+		}
 	}
 
-	
+	public boolean emailDispo(Client client) throws ServiceException {
+		List<String> emails = new ArrayList<String>();
+		try{
+			emails = clientDao.getAllEmail();
+			for (String email : emails) {
+				if (email.equals(client.email())) {
+					return false;
+				}
+			}
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la récupération des emails: " + e.getMessage());
+		}
+		return true;
+	}
+
+
 }
