@@ -58,6 +58,6 @@ public class ClientCreateServlet extends HttpServlet {
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        resp.sendRedirect(req.getContextPath() + "/users/create");
+        resp.sendRedirect(req.getContextPath() + "/users/list");
     }
 }

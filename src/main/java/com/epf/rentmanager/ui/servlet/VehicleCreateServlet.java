@@ -48,7 +48,7 @@ public class VehicleCreateServlet extends HttpServlet {
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        resp.sendRedirect(req.getContextPath() + "/cars/create");
+        resp.sendRedirect(req.getContextPath() + "/cars/list");
     }
 }
 

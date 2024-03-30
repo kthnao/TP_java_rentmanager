@@ -30,6 +30,10 @@ public class ReservationCreateServlet extends HttpServlet {
 
     @Autowired
     ReservationService reservationService;
+    @Autowired
+    ClientService clientService;
+    @Autowired
+    VehicleService vehicleService;
 
     @Override
     public void init() throws ServletException {
@@ -38,6 +42,17 @@ public class ReservationCreateServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        List<Client> clients = new ArrayList<Client>();
+        List<Vehicle> vehicles = new ArrayList<Vehicle>();
+        try {
+            clients = clientService.findAll();
+            vehicles = vehicleService.findAll();
+        } catch (ServiceException e) {
+            throw new ServletException(e.getMessage());
+        }
+        req.setAttribute("clients", clients);
+        req.setAttribute("vehicles", vehicles);
 
         this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(req, resp);
 
@@ -49,8 +64,8 @@ public class ReservationCreateServlet extends HttpServlet {
         formatter = formatter.withLocale(Locale.FRANCE);
         Reservation reservation = new Reservation(
                 0L,
-                Long.parseLong(req.getParameter("car")),
                 Long.parseLong(req.getParameter("client")),
+                Long.parseLong(req.getParameter("car")),
                 LocalDate.parse(req.getParameter("begin"),formatter),
                 LocalDate.parse(req.getParameter("end"),formatter)
         );
@@ -60,7 +75,7 @@ public class ReservationCreateServlet extends HttpServlet {
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        resp.sendRedirect(req.getContextPath() + "/rents/create");
+        resp.sendRedirect(req.getContextPath() + "/rents/list");
     }
 }
 
