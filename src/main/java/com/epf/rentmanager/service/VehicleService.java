@@ -6,10 +6,7 @@ import java.util.Optional;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
-import com.epf.rentmanager.dao.ClientDao;
-import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.dao.VehicleDao;
 import org.springframework.stereotype.Service;
 
@@ -55,9 +52,9 @@ public class VehicleService {
 		return vehicles;
 	}
 
-	public void delete(Vehicle vehicle) throws ServiceException {
+	public void delete(Optional<Vehicle> vehicle) throws ServiceException {
 		try {
-			 vehicleDao.delete(vehicle);
+			 vehicleDao.delete(vehicle.get());
 		} catch (DaoException e) {
 			throw new ServiceException("Erreur lors de la suppression du véhicule: " + e.getMessage());
 		}

@@ -73,9 +73,9 @@ public class VehicleDao {
 			stmt.setLong(1, id);
 			stmt.execute();
 			ResultSet res = stmt.getResultSet();
-			while (res.next()) {
+			if (res.next()) {
 				Vehicle vehicle = new Vehicle(
-						res.getLong("id"),
+						id,
 						res.getString("constructeur"),
 						res.getString("modele"),
 						res.getInt("nb_places")
