@@ -10,6 +10,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,19 +46,23 @@ public class ClientCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         formatter = formatter.withLocale(Locale.FRANCE);
-        Client client = new Client(
-                0L,
+
+    Client client = new Client(-1,
                 req.getParameter("last_name"),
                 req.getParameter("first_name"),
                 req.getParameter("email"),
-                LocalDate.parse(req.getParameter("birthdate"),formatter)
-
-        );
+                LocalDate.parse(req.getParameter("birthdate"),formatter));
+        boolean estMajeur = clientService.estMajeur(client);
         try {
-            clientService.create(client);
+            if (estMajeur) clientService.create(client);
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        resp.sendRedirect(req.getContextPath() + "/users/list");
+        if (!estMajeur) {
+            req.setAttribute("clientError", "Client creation is not possible. Please choose new email or set age over 18.");
+            doGet(req, resp);
+        } else {
+            resp.sendRedirect(req.getContextPath() + "/users/list");
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.epf.rentmanager.service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -67,5 +69,10 @@ public class ClientService {
 			throw new ServiceException("Erreur lors du comptage des véhicules: " + e.getMessage());
 		}
 	}
+
+	public boolean estMajeur(Client client) {
+		return ChronoUnit.YEARS.between(client.naissance(), LocalDate.now()) >= 18;
+	}
+
 	
 }
