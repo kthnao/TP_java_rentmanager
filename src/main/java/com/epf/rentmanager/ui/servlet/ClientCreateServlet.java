@@ -54,11 +54,13 @@ public class ClientCreateServlet extends HttpServlet {
                 LocalDate.parse(req.getParameter("birthdate"),formatter));
         boolean estMajeur = false;
         boolean emailDispo = false;
+        boolean nomPrenomValide = false;
 
         try {
             estMajeur = clientService.estMajeur(client);
             if (estMajeur) emailDispo = clientService.emailDispo(client);
-            if (emailDispo) clientService.create(client);
+            if (emailDispo) nomPrenomValide = clientService.name_lenght(client);
+            if (nomPrenomValide) clientService.create(client);
         } catch (ServiceException e) {
             throw new ServletException(e);
         }
@@ -68,6 +70,10 @@ public class ClientCreateServlet extends HttpServlet {
         }
         else if (!emailDispo) {
             req.setAttribute("clientError", "L'email est déjà utilisé.");
+            doGet(req, resp);
+        }
+        else if (!nomPrenomValide) {
+            req.setAttribute("clientError", "Le nom et le prénom doivent contenir au moins 3 caractères.");
             doGet(req, resp);
         }
         else {

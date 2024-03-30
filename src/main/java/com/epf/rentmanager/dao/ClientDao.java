@@ -152,6 +152,14 @@ public class ClientDao {
 		return emails;
 	}
 
+	public boolean name_lenght(Client client) throws DaoException{
+		try {
+			return client.nom().length() >= 3 && client.prenom().length() >= 3;
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la vérification de la longueur du nom et du prénom: " + e.getMessage());
+		}
+	}
+
 
 }
 

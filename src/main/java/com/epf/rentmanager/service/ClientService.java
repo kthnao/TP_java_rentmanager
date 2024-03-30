@@ -93,5 +93,13 @@ public class ClientService {
 		return true;
 	}
 
+	public boolean name_lenght(Client client) throws ServiceException {
+		try {
+			return clientDao.name_lenght(client);
+		} catch (Exception e) {
+			throw new ServiceException("Erreur lors de la vérification de la longueur du nom et du prénom: " + e.getMessage());
+		}
+	}
+
 
 }
