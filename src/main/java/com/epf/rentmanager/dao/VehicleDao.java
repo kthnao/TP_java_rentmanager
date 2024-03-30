@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.epf.rentmanager.exception.DaoException;
+import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.model.Reservation;
@@ -24,12 +25,12 @@ public class VehicleDao {
 
 	private VehicleDao() {}
 
-	
+
 	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES(?, ?, ?);";
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur,modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
-	
+
 	public long create(Vehicle vehicle) throws DaoException {
 		if(vehicle.constructeur() == null) {
 			throw new DaoException("Le constructeur du véhicule est obligatoire");
@@ -116,10 +117,34 @@ public class VehicleDao {
 		try{
 			return this.findAll().size();
 		}
-		catch (DaoException e) {
+		catch (Exception e) {
 			throw new DaoException("Erreur lors de la récupération des véhicules: " + e.getMessage());
 		}
 	}
-	
+
+	public boolean constructeurNonVide(Vehicle vehicle) throws DaoException{
+		try {
+			return vehicle.constructeur() != null && !vehicle.constructeur().isEmpty();
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la validation du constructeur: " + e.getMessage());
+		}
+	}
+
+	public boolean modeleNonVide(Vehicle vehicle) throws DaoException{
+		try {
+			return vehicle.modele() != null && !vehicle.modele().isEmpty();
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la validation du modèle: " + e.getMessage());
+		}
+	}
+
+	public boolean nbPlacesValide(Vehicle vehicle) throws DaoException {
+		try {
+			return vehicle.nb_places() >= 2 && vehicle.nb_places() <= 9;
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la validation du nombre de places: " + e.getMessage());
+		}
+	}
+
 
 }

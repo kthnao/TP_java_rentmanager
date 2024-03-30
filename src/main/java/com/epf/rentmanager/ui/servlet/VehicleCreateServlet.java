@@ -35,20 +35,42 @@ public class VehicleCreateServlet extends HttpServlet {
 
     }
 
+    //une voiture doit avoir un modèle et un constructeur, son nombre de place doit
+    //être compris entre 2 et 9
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-         Vehicle vehicle = new Vehicle(
-                0L,
-                req.getParameter("manufacturer"),
-                req.getParameter("modele"),
-                Integer.parseInt(req.getParameter("seats"))
-        );
+        String constructeur = req.getParameter("manufacturer");
+        String modele = req.getParameter("modele");
+        int nb_places = Integer.parseInt(req.getParameter("seats"));
+        Vehicle vehicle = new Vehicle(0, constructeur, modele, nb_places);
+        boolean constructeurValide = false;
+        boolean modeleValide = false;
+        boolean nbPlacesValide = false;
+
         try {
-            vehicleService.create(vehicle);
+             constructeurValide = vehicleService.constructeurNonVide(vehicle);
+            if (constructeurValide) modeleValide = vehicleService.modeleNonVide(vehicle);
+            if (modeleValide) nbPlacesValide = vehicleService.nbPlacesValide(vehicle);
+            if (nbPlacesValide) vehicleService.create(vehicle);
         } catch (ServiceException e) {
-            throw new ServletException(e.getMessage());
+            throw new RuntimeException(e);
         }
-        resp.sendRedirect(req.getContextPath() + "/cars/list");
+        if (!constructeurValide) {
+            req.setAttribute("vehicleError", "Le véhicule doit avoir un constructeur.");
+            doGet(req, resp);
+        }
+        else if (!modeleValide) {
+            req.setAttribute("vehicleError", "Le véhicule doit avoir un modèle.");
+            doGet(req, resp);
+        }
+        else if (!nbPlacesValide) {
+            req.setAttribute("vehicleError", "Le nombre de place du véhicule doit être compris entre 9 et 2.");
+            doGet(req, resp);
+        }
+        else {
+            resp.sendRedirect(req.getContextPath() + "/cars/list");
+        }
     }
 }
 

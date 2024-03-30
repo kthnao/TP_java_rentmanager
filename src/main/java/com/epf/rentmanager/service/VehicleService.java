@@ -68,5 +68,29 @@ public class VehicleService {
 		}
 	}
 
+	public boolean constructeurNonVide(Vehicle vehicle) throws ServiceException{
+		try {
+			return vehicleDao.constructeurNonVide(vehicle);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la validation du constructeur: " + e.getMessage());
+		}
+	}
+
+	public boolean modeleNonVide(Vehicle vehicle) throws ServiceException{
+		try {
+			return vehicleDao.modeleNonVide(vehicle);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la validation du modèle: " + e.getMessage());
+		}
+	}
+
+	public boolean nbPlacesValide(Vehicle vehicle) throws ServiceException {
+		try {
+			return vehicleDao.nbPlacesValide(vehicle);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la validation du nombre de places: " + e.getMessage());
+		}
+	}
+
 	
 }

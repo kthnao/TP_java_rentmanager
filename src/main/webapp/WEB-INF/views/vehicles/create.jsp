@@ -54,6 +54,11 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="seats" name="seats" placeholder="Nombre de places" required>
                                     </div>
+                                    <div class="col-sm-10">
+                                        <c:if test="${not empty requestScope.vehicleError}">
+                                                <p style="color: red;"><c:out value="${requestScope.vehicleError}" /></p>
+                                        </c:if>
+                                    </div>
                                 </div>
                                 <!--
                                 <div class="form-group">
