@@ -10,6 +10,7 @@ com\epf\rentmanager\persistence\ConnectionManager.class
 com\epf\rentmanager\dao\ReservationDao.class
 com\epf\rentmanager\ui\servlet\ClientCreateServlet.class
 com\epf\rentmanager\ui\servlet\ReservationListServlet.class
+com\epf\rentmanager\ui\servlet\ReservationDeleteServlet.class
 com\epf\rentmanager\model\Vehicle.class
 com\epf\rentmanager\dao\ClientDao.class
 com\epf\rentmanager\Configuration\WebConfiguration.class

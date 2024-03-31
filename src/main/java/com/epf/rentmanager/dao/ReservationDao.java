@@ -38,7 +38,7 @@ public class ReservationDao {
 			throw new DaoException("Le client et le véhicule sont obligatoires");
 		}
 		try(Connection connection = ConnectionManager.getConnection();
-			PreparedStatement stmt = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = connection.prepareStatement(CREATE_RESERVATION_QUERY);
 		) {
 			stmt.setLong(1, reservation.client_id());
 			stmt.setLong(2, reservation.vehicle_id());
@@ -58,12 +58,12 @@ public class ReservationDao {
 	
 	public long delete(Reservation reservation) throws DaoException {
 		try(Connection connection = ConnectionManager.getConnection();
-			PreparedStatement stmt = connection.prepareStatement(DELETE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = connection.prepareStatement(DELETE_RESERVATION_QUERY);
 		) {
 			stmt.setLong(1, reservation.id());
 			stmt.execute();
 
-			return 0;
+			return 1;
 		} catch (SQLException e) {
 			throw new DaoException("Erreur lors de la suppression de la réservation: " + e.getMessage());
 		}
