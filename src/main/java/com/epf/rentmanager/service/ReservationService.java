@@ -6,14 +6,8 @@ import java.util.Optional;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
-import com.epf.rentmanager.model.Vehicle;
-import com.epf.rentmanager.dao.ClientDao;
-import com.epf.rentmanager.exception.DaoException;
-import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.exception.DaoException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -104,6 +98,14 @@ public long create(Reservation reservation) throws ServiceException {
         try {
             return reservationDao.vehicleDispo(reservation);
             } catch (DaoException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public boolean rentMaxTrente(Reservation res) throws ServiceException{
+        try{
+            return reservationDao.rentMaxTrente(res);
+        } catch (DaoException ex) {
             throw new RuntimeException(ex);
         }
     }

@@ -206,14 +206,80 @@ public class ReservationDao {
 				if (r.debut().equals(res.fin())){
 					return false;
 				}
-
-
-
-
 			}
 			return true;
 		} catch (Exception e){
 			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
 		}
 	}
+
+	public boolean rentMaxTrente(Reservation res) throws DaoException {
+		try {
+			List<Reservation> rents = this.findResaByVehicleId(res.vehicle_id());
+			long totResAffil = 0; // Nombre total de jours d'affilé réservés par l'utilisateur pour cette voiture
+			LocalDate lastEndDate = null; // Date de fin de la dernière réservation faite par l'utilisateur pour cette voiture
+			long dureeResa = java.time.temporal.ChronoUnit.DAYS.between(res.debut(), res.fin()) + 1; // Durée de la réservation en cours
+			if (dureeResa >= 30) {
+				return false;
+			}
+			else {
+				rents.add(res);
+				for (Reservation r : rents) {
+					if (r.vehicle_id() == res.vehicle_id()) {
+						if (lastEndDate != null && r.debut().isEqual(lastEndDate.plusDays(1))) {
+							totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+						} else {
+							totResAffil = 0;
+							totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+						}
+						lastEndDate = r.fin();
+					}
+					if (totResAffil >= 30) {
+						return false;
+					}
+				}
+				return true;
+			}
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
+		}
+	}
+/*
+	public boolean rentMaxTrente(Reservation res) throws DaoException {
+		try {
+			List<Reservation> rents = this.findResaByVehicleId(res.vehicle_id());
+			long totResAffil = 0; // Nombre total de jours d'affilé réservés par l'utilisateur pour cette voiture
+			boolean suiteRes = false; // Indique si les réservations faite par l'utilisateur se suivent
+			LocalDate lastEndDate = null; // Date de fin de la dernière réservation faite par l'utilisateur pour cette voiture
+
+
+
+			for (Reservation r : rents) {
+
+				if (r.client_id() == res.client_id()) {
+
+					if (lastEndDate != null && r.debut().isEqual(lastEndDate.plusDays(1))) {
+						totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+						suiteRes = true;
+					} else {
+						suiteRes = false;
+						totResAffil = 0;
+						totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+					}
+					lastEndDate = r.fin();
+				}
+				// Si le total des jours réservés dépasse 7, la réservation en cours ne peut pas être effectuée
+				if (totResAffil > 7) {
+					return false;
+				}
+
+			}
+			return true;
+		} catch (Exception e) {
+			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
+		}
+	}
+
+*/
+
 }

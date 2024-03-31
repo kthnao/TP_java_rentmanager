@@ -70,16 +70,23 @@ public class ReservationCreateServlet extends HttpServlet {
                 LocalDate.parse(req.getParameter("end"),formatter)
         );
         boolean voitureDispo = false;
+        boolean maxTrente = false;
 
         try {
             voitureDispo = reservationService.vehicleDispo(reservation);
-            if (voitureDispo) reservationService.create(reservation);
+            if (voitureDispo) maxTrente = reservationService.rentMaxTrente(reservation);
+            if (maxTrente) reservationService.create(reservation);
+
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
 
         if(!voitureDispo) {
             req.setAttribute("rentError", "La voiture n'est pas disponible durant cette période");
+            doGet(req, resp);
+        }
+        else if(!maxTrente) {
+            req.setAttribute("rentError", "La location ne peut pas dépasser 30 jours");
             doGet(req, resp);
         }
         else{
