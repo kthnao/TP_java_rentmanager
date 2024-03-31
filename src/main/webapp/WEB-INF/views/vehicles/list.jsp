@@ -48,7 +48,7 @@
                                         <a class="btn btn-success disabled" href="#">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger disabled" href="#">
+                                        <a class="btn btn-danger" href="${pageContext.request.contextPath}/cars/delete/${vehicle.id()}" onclick="return confirm('Etes-vous sur de vouloir supprimer ce vehicule ?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
