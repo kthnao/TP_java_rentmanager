@@ -39,7 +39,7 @@ public class ClientDao {
 		}
 
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement stmt = connection.prepareStatement(CREATE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS);
+			 PreparedStatement stmt = connection.prepareStatement(CREATE_CLIENT_QUERY);
 		){
 			stmt.setString(1, client.nom());
 			stmt.setString(2, client.prenom());
@@ -59,12 +59,12 @@ public class ClientDao {
 	
 	public long delete(Client client) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement stmt = connection.prepareStatement(DELETE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS);
+			 PreparedStatement stmt = connection.prepareStatement(DELETE_CLIENT_QUERY);
 		){
 			stmt.setLong(1, client.id());
 			stmt.execute();
 
-			return 0;
+			return 1;
 		} catch (SQLException e) {
 			throw new DaoException("Erreur lors de la création du client: " + e.getMessage());
 		}
