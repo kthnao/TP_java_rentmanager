@@ -70,12 +70,12 @@ public class ReservationCreateServlet extends HttpServlet {
                 LocalDate.parse(req.getParameter("end"),formatter)
         );
         boolean voitureDispo = false;
-        boolean maxTrente = false;
+        boolean rentRules = false;
 
         try {
             voitureDispo = reservationService.vehicleDispo(reservation);
-            if (voitureDispo) maxTrente = reservationService.rentMaxTrente(reservation);
-            if (maxTrente) reservationService.create(reservation);
+            if (voitureDispo) rentRules = reservationService.rentRules(reservation);
+            if (rentRules) reservationService.create(reservation);
 
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
@@ -85,8 +85,9 @@ public class ReservationCreateServlet extends HttpServlet {
             req.setAttribute("rentError", "La voiture n'est pas disponible durant cette période");
             doGet(req, resp);
         }
-        else if(!maxTrente) {
-            req.setAttribute("rentError", "La location ne peut pas dépasser 30 jours");
+        else if(!rentRules) {
+            req.setAttribute("rentError", "Le véhicule ne peux pas être réservé plus de 7 jours de suite par le même\n" +
+                    "utilisateur et la location d'une voiture ne peut pas dépasser 30 jours");
             doGet(req, resp);
         }
         else{

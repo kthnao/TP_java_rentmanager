@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.epf.rentmanager.exception.DaoException;
 
@@ -213,28 +215,40 @@ public class ReservationDao {
 		}
 	}
 
-	public boolean rentMaxTrente(Reservation res) throws DaoException {
+	public boolean rentRules(Reservation res) throws DaoException {
 		try {
 			List<Reservation> rents = this.findResaByVehicleId(res.vehicle_id());
-			long totResAffil = 0; // Nombre total de jours d'affilé réservés par l'utilisateur pour cette voiture
-			LocalDate lastEndDate = null; // Date de fin de la dernière réservation faite par l'utilisateur pour cette voiture
+			long totResAffilcar = 0; // Nombre total de jours d'affilé réservés pour cette voiture
+			long totResAffiluser = 0; // Nombre total de jours d'affilé réservés par l'utilisateur pour cette voiture
+			LocalDate lastEndDatecar = null; // Date de fin de la dernière réservation faite par l'utilisateur pour cette voiture
+			LocalDate lastEndDateuser = null; // Date de fin de la dernière réservation faite par l'utilisateur pour cette voiture
 			long dureeResa = java.time.temporal.ChronoUnit.DAYS.between(res.debut(), res.fin()) + 1; // Durée de la réservation en cours
-			if (dureeResa >= 30) {
+			if (dureeResa > 7) {
 				return false;
 			}
 			else {
 				rents.add(res);
+				rents.sort(Comparator.comparing(Reservation::debut));
 				for (Reservation r : rents) {
 					if (r.vehicle_id() == res.vehicle_id()) {
-						if (lastEndDate != null && r.debut().isEqual(lastEndDate.plusDays(1))) {
-							totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+						if (lastEndDatecar != null && r.debut().isEqual(lastEndDatecar.plusDays(1))) {
+							totResAffilcar += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
 						} else {
-							totResAffil = 0;
-							totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+							totResAffilcar = 0;
+							totResAffilcar += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
 						}
-						lastEndDate = r.fin();
+						lastEndDatecar = r.fin();
 					}
-					if (totResAffil >= 30) {
+					if (r.client_id() == res.client_id()) {
+						if (lastEndDateuser != null && r.debut().isEqual(lastEndDateuser.plusDays(1))) {
+							totResAffiluser += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+						} else {
+							totResAffiluser = 0;
+							totResAffiluser += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
+						}
+						lastEndDateuser = r.fin();
+					}
+					if (totResAffilcar >= 30 || totResAffiluser > 7) {
 						return false;
 					}
 				}
@@ -244,42 +258,8 @@ public class ReservationDao {
 			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
 		}
 	}
-/*
-	public boolean rentMaxTrente(Reservation res) throws DaoException {
-		try {
-			List<Reservation> rents = this.findResaByVehicleId(res.vehicle_id());
-			long totResAffil = 0; // Nombre total de jours d'affilé réservés par l'utilisateur pour cette voiture
-			boolean suiteRes = false; // Indique si les réservations faite par l'utilisateur se suivent
-			LocalDate lastEndDate = null; // Date de fin de la dernière réservation faite par l'utilisateur pour cette voiture
 
 
 
-			for (Reservation r : rents) {
-
-				if (r.client_id() == res.client_id()) {
-
-					if (lastEndDate != null && r.debut().isEqual(lastEndDate.plusDays(1))) {
-						totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
-						suiteRes = true;
-					} else {
-						suiteRes = false;
-						totResAffil = 0;
-						totResAffil += java.time.temporal.ChronoUnit.DAYS.between(r.debut(), r.fin()) + 1;
-					}
-					lastEndDate = r.fin();
-				}
-				// Si le total des jours réservés dépasse 7, la réservation en cours ne peut pas être effectuée
-				if (totResAffil > 7) {
-					return false;
-				}
-
-			}
-			return true;
-		} catch (Exception e) {
-			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
-		}
-	}
-
-*/
 
 }

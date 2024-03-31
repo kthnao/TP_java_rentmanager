@@ -102,12 +102,13 @@ public long create(Reservation reservation) throws ServiceException {
         }
     }
 
-    public boolean rentMaxTrente(Reservation res) throws ServiceException{
+    public boolean rentRules(Reservation res) throws ServiceException{
         try{
-            return reservationDao.rentMaxTrente(res);
-        } catch (DaoException ex) {
-            throw new RuntimeException(ex);
+            return reservationDao.rentRules(res);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
         }
     }
+
 
 }
