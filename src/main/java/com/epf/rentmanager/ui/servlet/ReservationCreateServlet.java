@@ -69,13 +69,22 @@ public class ReservationCreateServlet extends HttpServlet {
                 LocalDate.parse(req.getParameter("begin"),formatter),
                 LocalDate.parse(req.getParameter("end"),formatter)
         );
+        boolean voitureDispo = false;
 
         try {
-            reservationService.create(reservation);
+            voitureDispo = reservationService.vehicleDispo(reservation);
+            if (voitureDispo) reservationService.create(reservation);
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        resp.sendRedirect(req.getContextPath() + "/rents/list");
+
+        if(!voitureDispo) {
+            req.setAttribute("rentError", "La voiture n'est pas disponible durant cette période");
+            doGet(req, resp);
+        }
+        else{
+            resp.sendRedirect(req.getContextPath() + "/rents/list");
+        }
     }
 }
 

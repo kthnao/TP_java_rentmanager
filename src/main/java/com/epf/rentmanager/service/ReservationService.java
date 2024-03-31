@@ -100,4 +100,12 @@ public long create(Reservation reservation) throws ServiceException {
         }
     }
 
+    public boolean vehicleDispo(Reservation reservation) throws ServiceException {
+        try {
+            return reservationDao.vehicleDispo(reservation);
+            } catch (DaoException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
 }

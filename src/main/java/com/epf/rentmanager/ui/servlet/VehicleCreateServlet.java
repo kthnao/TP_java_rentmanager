@@ -35,15 +35,14 @@ public class VehicleCreateServlet extends HttpServlet {
 
     }
 
-    //une voiture doit avoir un modèle et un constructeur, son nombre de place doit
-    //être compris entre 2 et 9
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String constructeur = req.getParameter("manufacturer");
-        String modele = req.getParameter("modele");
-        int nb_places = Integer.parseInt(req.getParameter("seats"));
-        Vehicle vehicle = new Vehicle(0, constructeur, modele, nb_places);
+        Vehicle vehicle = new Vehicle(
+                0,
+                req.getParameter("manufacturer"),
+                req.getParameter("modele"),
+                Integer.parseInt(req.getParameter("seats"))
+        );
         boolean constructeurValide = false;
         boolean modeleValide = false;
         boolean nbPlacesValide = false;

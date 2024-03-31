@@ -125,7 +125,7 @@ public class ClientDao {
 			return this.findAll().size();
 		}
 		catch (Exception e) {
-			throw new DaoException("Erreur lors de la récupération des véhicules: " + e.getMessage());
+			throw new DaoException("Erreur lors de la récupération des clients: " + e.getMessage());
 		}
 	}
 

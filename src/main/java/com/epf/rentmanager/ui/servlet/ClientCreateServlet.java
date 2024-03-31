@@ -47,7 +47,7 @@ public class ClientCreateServlet extends HttpServlet {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         formatter = formatter.withLocale(Locale.FRANCE);
 
-    Client client = new Client(-1,
+    Client client = new Client(0,
                 req.getParameter("last_name"),
                 req.getParameter("first_name"),
                 req.getParameter("email"),

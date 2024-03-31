@@ -168,7 +168,52 @@ public class ReservationDao {
 			return this.findAll().size();
 		}
 		catch (Exception e) {
-			throw new DaoException("Erreur lors de la récupération des véhicules: " + e.getMessage());
+			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
+		}
+	}
+
+	public boolean vehicleDispo(Reservation res) throws DaoException {
+		try {
+			List<Reservation> rents = this.findResaByVehicleId(res.vehicle_id());
+			for (Reservation r : rents) {
+				if (r.debut().isBefore(res.debut()) && r.fin().isAfter(res.fin())) {
+					return false;
+				}
+				if (r.debut().isAfter(res.debut()) && r.fin().isBefore(res.fin())) {
+					return false;
+				}
+				if (r.debut().isAfter(res.debut()) && r.debut().isBefore(res.fin())) {
+					return false;
+				}
+				if (r.debut().isBefore(res.fin()) && r.fin().isAfter(res.fin())) {
+					return false;
+				}
+				if (r.debut().isBefore(res.debut()) && r.fin().isAfter(res.debut())) {
+					return false;
+				}
+				if (r.fin().isAfter(res.debut()) && r.fin().isBefore(res.fin())) {
+					return false;
+				}
+				if (r.fin().equals(res.debut())){
+					return false;
+				}
+				if (r.fin().equals(res.fin())){
+					return false;
+				}
+				if (r.debut().equals(res.debut())){
+					return false;
+				}
+				if (r.debut().equals(res.fin())){
+					return false;
+				}
+
+
+
+
+			}
+			return true;
+		} catch (Exception e){
+			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
 		}
 	}
 }
