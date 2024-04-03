@@ -1,1 +1,3 @@
-epf\AppTest.class
+com/epf/rentmanager/Client_test.class
+com/epf/rentmanager/AppTest.class
+com/epf/rentmanager/Vehicle_test.class

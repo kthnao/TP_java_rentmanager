@@ -25,20 +25,20 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/users/create">
+                        <form class="form-horizontal" method="post">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom">
+                                        <input type="text" class="form-control" id="nom" name="last_name" placeholder="Nom">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom">
+                                        <input type="text" class="form-control" id="prenom" name="first_name" placeholder="Prenom">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -48,6 +48,20 @@
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="birthdate" class="col-sm-2 control-label">Naissance</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="naissance" name="birthdate" placeholder="Naissance">
+                                    </div>
+                                    <div class="col-sm-10">
+                                    <c:if test="${not empty requestScope.clientError}">
+                                            <p style="color: red;"><c:out value="${requestScope.clientError}" /></p>
+                                    </c:if>
+                                    </div>
+                                </div>
+
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">

@@ -25,28 +25,33 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/rents/create">
+                        <form class="form-horizontal" method="post"> <!--action="/rents/create"-->
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="car" class="col-sm-2 control-label">Voiture</label>
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="car" name="car">
-                                            <option value="1">Renault Clio</option>
-                                            <option value="2">Citroen C2</option>
+                                            <c:forEach items="${vehicles}" var="vehicle">
+                                                <option value="${vehicle.id()}">${vehicle.constructeur()} ${vehicle.modele()}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
+
+
                                 <div class="form-group">
                                     <label for="client" class="col-sm-2 control-label">Client</label>
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="client" name="client">
-                                            <option value="1">John Doe</option>
-                                            <option value="2">Jane Doe</option>
+                                            <c:forEach items="${clients}" var="client">
+                                                <option value="${client.id()}">${client.prenom()} ${client.nom()}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
@@ -61,6 +66,11 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="end" name="end" required
                                                data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <c:if test="${not empty requestScope.rentError}">
+                                                <p style="color: red;"><c:out value="${requestScope.rentError}" /></p>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
