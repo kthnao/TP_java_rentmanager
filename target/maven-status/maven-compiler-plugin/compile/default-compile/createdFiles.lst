@@ -19,6 +19,7 @@ com/epf/rentmanager/ui/servlet/ClientDeleteServlet.class
 com/epf/rentmanager/utils/IOUtils.class
 com/epf/rentmanager/ui/servlet/ReservationCreateServlet.class
 com/epf/rentmanager/ui/servlet/ClientListServlet.class
+com/epf/rentmanager/ui/servlet/VehicleDetailsServlet.class
 com/epf/rentmanager/model/Client.class
 com/epf/rentmanager/model/Vehicle.class
 com/epf/rentmanager/ui/servlet/VehicleDeleteServlet.class

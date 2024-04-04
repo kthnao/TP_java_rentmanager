@@ -40,14 +40,13 @@ public class ClientDetailsServlet extends HttpServlet {
         long clientId = Long.parseLong(req.getParameter("id"));
         Client client;
         Vehicle vehicle;
-        long vehicleId;
         List<Vehicle> vehicles = new ArrayList<>();
         List<String> vehicles_names = new ArrayList<>();
         try {
             List<Reservation> rents = reservationService.findReservationsByClient(clientId);
             client = clientService.findById(clientId).get();
             for (Reservation rent : rents) {
-                vehicleId=rent.vehicle_id();
+                long vehicleId=rent.vehicle_id();
                  vehicle=vehicleService.findById(vehicleId).get();
                 if(!vehicles.contains(vehicle)){
                     vehicles.add(vehicle);
@@ -72,8 +71,8 @@ public class ClientDetailsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/users");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       // resp.sendRedirect(req.getContextPath() + "/users");
     }
 
 }

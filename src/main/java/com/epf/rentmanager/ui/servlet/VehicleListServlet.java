@@ -27,7 +27,7 @@ public class VehicleListServlet extends HttpServlet{
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
     private static final long serialVersionUID = 1L;
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
 
         try {
@@ -35,8 +35,8 @@ public class VehicleListServlet extends HttpServlet{
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        request.setAttribute("vehicles", vehicles);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
+        req.setAttribute("vehicles", vehicles);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(req, resp);
 
 
 
