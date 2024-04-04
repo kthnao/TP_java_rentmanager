@@ -1,10 +1,13 @@
-package com.epf.rentmanager.ui.servlet;
+package com.epf.rentmanager.ui.servlet.Client;
+
+import javax.servlet.http.HttpServlet;
 
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-@WebServlet("/cars/delete/*")
-public class VehicleDeleteServlet extends HttpServlet {
+@WebServlet("/users/delete/*")
+public class ClientDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private VehicleService vehicleService;
+    private ClientService clientService;
+
     @Autowired
     private ReservationService reservationService;
 
@@ -35,25 +38,27 @@ public class VehicleDeleteServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long vehicleId = Long.parseLong(req.getPathInfo().substring(1));
-        Vehicle vehicle = new Vehicle(
-                vehicleId,
+        long ClientId = Long.parseLong(req.getPathInfo().substring(1));
+        Client client = new Client(
+                ClientId,
                 null,
                 null,
-                0
+                null,
+                null
+
         );
         try {
-            List<Reservation> rents = reservationService.findReservationsByVehicle(vehicleId);
+            List<Reservation> rents = reservationService.findReservationsByClient(ClientId);
             for (Reservation rent : rents) {
-                if (rent.vehicle_id() == vehicleId) {
+                if (rent.client_id() == ClientId) {
                     reservationService.delete(rent);
                 }
             }
-            vehicleService.delete(Optional.of(vehicle));
+            clientService.delete(client);
         } catch (ServiceException e) {
             throw new ServletException(e);
         }
-        resp.sendRedirect(req.getContextPath() + "/cars/list");
+        resp.sendRedirect(req.getContextPath() + "/users/list");
     }
 
 

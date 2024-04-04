@@ -1,4 +1,4 @@
-package com.epf.rentmanager.ui.servlet;
+package com.epf.rentmanager.ui.servlet.Vehicle;
 
 
 import com.epf.rentmanager.exception.ServiceException;

@@ -1,13 +1,8 @@
-package com.epf.rentmanager.ui.servlet;
-
-import javax.servlet.http.HttpServlet;
-
+package com.epf.rentmanager.ui.servlet.Reservation;
 
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalDate;
 
-@WebServlet("/users/delete/*")
-public class ClientDeleteServlet extends HttpServlet {
+@WebServlet("/rents/delete/*")
+public class ReservationDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    @Autowired
-    private ClientService clientService;
 
     @Autowired
     private ReservationService reservationService;
@@ -38,27 +30,19 @@ public class ClientDeleteServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long ClientId = Long.parseLong(req.getPathInfo().substring(1));
-        Client client = new Client(
-                ClientId,
-                null,
-                null,
+        Reservation reservation = new Reservation(
+                Long.parseLong(req.getPathInfo().substring(1)),
+               0,
+                0,
                 null,
                 null
-
         );
         try {
-            List<Reservation> rents = reservationService.findReservationsByClient(ClientId);
-            for (Reservation rent : rents) {
-                if (rent.client_id() == ClientId) {
-                    reservationService.delete(rent);
-                }
-            }
-            clientService.delete(client);
+            reservationService.delete(reservation);
         } catch (ServiceException e) {
             throw new ServletException(e);
         }
-        resp.sendRedirect(req.getContextPath() + "/users/list");
+        resp.sendRedirect(req.getContextPath() + "/rents/list");
     }
 
 

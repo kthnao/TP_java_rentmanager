@@ -1,4 +1,4 @@
-package com.epf.rentmanager.ui.servlet;
+package com.epf.rentmanager.ui.servlet.Reservation;
 
 import java.io.IOException;
 import java.util.ArrayList;
