@@ -7,6 +7,7 @@ import java.util.List;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
@@ -28,22 +29,36 @@ public class ReservationListServlet extends HttpServlet {
 
     @Autowired
     ReservationService reservationService;
+    @Autowired
+    VehicleService vehicleService;
+    @Autowired
+    ClientService clientService;
     @Override
     public void init() throws ServletException {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
     private static final long serialVersionUID = 1L;
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Reservation> reservations = new ArrayList<Reservation>();
+        List<Client> clients = new ArrayList<Client>();;
+        List<Vehicle> vehicles = new ArrayList<Vehicle>();
 
         try {
             reservations = reservationService.findAll();
+            for (Reservation reservation : reservations) {
+                    Vehicle vehicle = vehicleService.findById(reservation.vehicle_id()).get();
+                    vehicles.add(vehicle);
+                    Client client = clientService.findById(reservation.client_id()).get();
+                    clients.add(client);
+            }
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }
-        request.setAttribute("rents", reservations );
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
+        req.setAttribute("rents", reservations );
+        req.setAttribute("vehicles", vehicles);
+        req.setAttribute("clients", clients);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(req, resp);
 
     }
 
