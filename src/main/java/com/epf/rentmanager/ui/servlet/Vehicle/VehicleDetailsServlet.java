@@ -2,6 +2,7 @@ package com.epf.rentmanager.ui.servlet.Vehicle;
 
 
 import com.epf.rentmanager.exception.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
@@ -32,6 +33,7 @@ public class VehicleDetailsServlet extends HttpServlet {
     @Autowired
     ClientService clientService;
 
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -43,18 +45,27 @@ public class VehicleDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long vehicleId = Long.parseLong(req.getParameter("id"));
-        Vehicle vehicle;
-
-        List<Reservation> rents = new ArrayList<>();
-
+        List<Client> clients = new ArrayList<>();
 
         try {
-            vehicle = vehicleService.findById(vehicleId).get();
-            rents = reservationService.findReservationsByVehicle(vehicleId);
-            int nbReservations = rents.size();
+            List<Reservation> rents = reservationService.findReservationsByVehicle(vehicleId);
+            Vehicle vehicle = null;
+            for (Reservation rent : rents) {
+                Client client = clientService.findById(rent.client_id()).get();
+                vehicle = vehicleService.findById(rent.vehicle_id()).get();
+                clients.add(client);
+                if (!clients.contains(client)) {
+                    clients.add(client);
+                }
+            }
+            int nbRents = rents.size();
+            int nbClients = clients.size();
+
             req.setAttribute("vehicle", vehicle);
-            req.setAttribute("listReservations", rents);
-            req.setAttribute("nbReservations", nbReservations);
+            req.setAttribute("clients", clients);
+            req.setAttribute("rents", rents);
+            req.setAttribute("nbRents", nbRents);
+            req.setAttribute("nbClients", nbClients);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/vehicles/details.jsp");
             dispatcher.forward(req, resp);
@@ -63,8 +74,4 @@ public class VehicleDetailsServlet extends HttpServlet {
 
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-    }
 }

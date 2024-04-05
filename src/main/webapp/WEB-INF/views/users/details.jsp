@@ -21,8 +21,8 @@
                     <div class="box box-primary">
                         <div class="box-body box-profile">
                             <h3 class="profile-username text-center">${client.prenom()} ${client.nom()}</h3>
-                            <h3 class="profile-username">${client.email()}</h3>
-                            <h3 class="profile-username">${client.naissance()}</h3>
+                            <h3 class="profile-username text-center">${client.email()}</h3>
+                            <h3 class="profile-username text-center">${client.naissance()}</h3>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">

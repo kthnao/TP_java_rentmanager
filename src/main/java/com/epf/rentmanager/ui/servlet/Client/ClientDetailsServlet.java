@@ -41,7 +41,6 @@ public class ClientDetailsServlet extends HttpServlet {
         List<Vehicle> vehicles = new ArrayList<>();
         try {
             List<Reservation> rents = reservationService.findReservationsByClient(clientId);
-
             Client client = null;
             for (Reservation rent : rents) {
                 Vehicle vehicle = vehicleService.findById(rent.vehicle_id()).get();
@@ -65,11 +64,6 @@ public class ClientDetailsServlet extends HttpServlet {
         } catch (ServiceException e) {
             throw new ServletException(e);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       // resp.sendRedirect(req.getContextPath() + "/users");
     }
 
 }
