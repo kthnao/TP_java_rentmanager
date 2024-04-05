@@ -38,30 +38,27 @@ public class ClientDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long clientId = Long.parseLong(req.getParameter("id"));
-        Client client;
-        Vehicle vehicle;
         List<Vehicle> vehicles = new ArrayList<>();
-        List<String> vehicles_names = new ArrayList<>();
         try {
             List<Reservation> rents = reservationService.findReservationsByClient(clientId);
-            client = clientService.findById(clientId).get();
+
+            Client client = null;
             for (Reservation rent : rents) {
-                long vehicleId=rent.vehicle_id();
-                 vehicle=vehicleService.findById(vehicleId).get();
-                if(!vehicles.contains(vehicle)){
+                Vehicle vehicle = vehicleService.findById(rent.vehicle_id()).get();
+                client = clientService.findById(rent.client_id()).get();
+                vehicles.add(vehicle);
+                if (!vehicles.contains(vehicle)) {
                     vehicles.add(vehicle);
-                    vehicles_names.add(vehicle.constructeur()+" "+vehicle.modele());
                 }
             }
             int nbRents = rents.size();
             int nbVehicle = vehicles.size();
 
             req.setAttribute("client", client);
-            req.setAttribute("listRents", rents);
-            req.setAttribute("listVehicles", rents);
+            req.setAttribute("rents", rents);
+            req.setAttribute("vehicles", vehicles);
             req.setAttribute("nbRents", nbRents);
             req.setAttribute("nbVehicle", nbVehicle);
-            req.setAttribute("vehicles_names", vehicles_names);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/users/details.jsp");
             dispatcher.forward(req, resp);

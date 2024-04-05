@@ -54,10 +54,10 @@
                                             <th>Date de debut</th>
                                             <th>Date de fin</th>
                                         </tr>
-                                        <c:forEach items="${rents}" var="rent">
+                                        <c:forEach items="${rents}" var="rent" varStatus="loop">
                                             <tr>
                                                 <td>${rent.id()}</td>
-                                                <td>${rent.vehicle.constructor()} ${rent.vehicle.model()}</td>
+                                                <td>${vehicles[loop.index].constructeur()} ${vehicles[loop.index].modele()}</td>
                                                 <td>${rent.debut()}</td>
                                                 <td>${rent.fin()}</td>
                                             </tr>
