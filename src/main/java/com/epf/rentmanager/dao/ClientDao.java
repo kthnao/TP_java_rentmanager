@@ -169,7 +169,6 @@ public class ClientDao {
 			stmt.setString(3, client.email());
 			stmt.setDate(4, Date.valueOf(client.naissance()));
 			stmt.setLong(5, client.id());
-			stmt.execute();
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DaoException("Erreur lors de la mise à jour du client.");

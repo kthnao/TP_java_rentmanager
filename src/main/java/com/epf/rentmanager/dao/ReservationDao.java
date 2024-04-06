@@ -1,5 +1,6 @@
 package com.epf.rentmanager.dao;
 
+import java.rmi.server.RemoteRef;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -32,6 +33,8 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
+	private static final String FIND_RESERVATIONS_BY_ID = "SELECT client_id, vehicle_id, debut, fin FROM Reservation WHERE id = ?;";
+	private static final String UPDATE_RESERVATIONS_QUERY = "UPDATE Reservation SET client_id = ?, vehicle_id = ?, debut = ?, fin = ? WHERE id = ?;";
 		
 	public long create(Reservation reservation) throws DaoException {
 		if(reservation.client_id() == 0 || reservation.vehicle_id() == 0) {
@@ -71,7 +74,7 @@ public class ReservationDao {
 
 	public Optional<Reservation> findById(long id) throws DaoException {
 		try(Connection connection = ConnectionManager.getConnection();
-			PreparedStatement stmt = connection.prepareStatement(FIND_RESERVATIONS_QUERY);
+			PreparedStatement stmt = connection.prepareStatement(FIND_RESERVATIONS_BY_ID);
 		) {
 			stmt.setLong(1, id);
 			stmt.execute();
@@ -91,7 +94,8 @@ public class ReservationDao {
 			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
 		}
 	}
-	
+
+
 	public List<Reservation> findResaByClientId(long clientId) throws DaoException {
 		List<Reservation> reservations = new ArrayList<>();
 		try (Connection connection = ConnectionManager.getConnection();
@@ -164,6 +168,7 @@ public class ReservationDao {
 			throw new DaoException("Erreur lors de la récupération des réservations: " + e.getMessage());
 		}
 	}
+
 
 	public int count() throws DaoException {
 		try{
@@ -260,6 +265,19 @@ public class ReservationDao {
 	}
 
 
+	public void update(Reservation reservation) throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement stmt = connection.prepareStatement(UPDATE_RESERVATIONS_QUERY)) {
+			stmt.setLong(1, reservation.client_id());
+			stmt.setLong(2, reservation.vehicle_id());
+			stmt.setDate(3, Date.valueOf(reservation.debut()));
+			stmt.setDate(4, Date.valueOf(reservation.fin()));
+			stmt.setLong(5, reservation.id());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new DaoException("Erreur lors de la mise à jour de la réservation.");
+		}
+	}
 
 
 }

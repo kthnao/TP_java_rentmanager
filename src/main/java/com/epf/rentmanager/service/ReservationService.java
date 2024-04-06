@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.dao.ReservationDao;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 import org.springframework.stereotype.Service;
 
@@ -107,6 +108,14 @@ public long create(Reservation reservation) throws ServiceException {
             return reservationDao.rentRules(res);
         } catch (DaoException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void update(Reservation reservation) throws ServiceException {
+        try {
+            reservationDao.update(reservation);
+        } catch (DaoException e) {
+            throw new ServiceException("Erreur lors de la mise à jour de la réservation.");
         }
     }
 

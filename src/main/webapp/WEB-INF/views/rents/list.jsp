@@ -42,8 +42,8 @@
                                     <td>${reservation.debut()}</td>
                                     <td>${reservation.fin()}</td>
                                     <td>
-                                        <a class="btn btn-success disabled" href="#">
-                                           <i class="fa fa-edit"></i>
+                                       <a class="btn btn-success " href="${pageContext.request.contextPath}/rents/update?id=${reservation.id()}" >
+                                              <i class="fa fa-edit"></i>
                                        </a>
                                         <a class="btn btn-danger" href="${pageContext.request.contextPath}/rents/delete/${reservation.id()}" onclick="return confirm('Etes-vous sur de vouloir supprimer cette réservation ?')">
                                             <i class="fa fa-trash"></i>

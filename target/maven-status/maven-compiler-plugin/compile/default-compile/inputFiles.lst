@@ -21,6 +21,7 @@
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Client/ClientDeleteServlet.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/model/Client.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/exception/DaoException.java
+/Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Reservation/ReservationUpdateServlet.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Client/ClientCreateServlet.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Vehicle/VehicleDeleteServlet.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Client/ClientListServlet.java
