@@ -19,6 +19,7 @@ com/epf/rentmanager/exception/ServiceException.class
 com/epf/rentmanager/Configuration/WebConfiguration.class
 com/epf/rentmanager/ui/servlet/Vehicle/VehicleCreateServlet.class
 com/epf/rentmanager/model/Client.class
+com/epf/rentmanager/ui/servlet/Client/ClientUpdateServlet.class
 com/epf/rentmanager/dao/ReservationDao.class
 com/epf/rentmanager/model/Vehicle.class
 com/epf/rentmanager/ui/servlet/Reservation/ReservationCreateServlet.class

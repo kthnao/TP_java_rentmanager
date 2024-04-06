@@ -149,14 +149,14 @@ public class VehicleDao {
 
 	public void update(Vehicle vehicle) throws DaoException {
 		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement ps = connection.prepareStatement(UPDATE_VEHICLES_QUERY)) {
-			ps.setString(1, vehicle.constructeur());
-			ps.setString(2, vehicle.modele());
-			ps.setInt(3, vehicle.nb_places());
-			ps.setLong(4, vehicle.id());
-			ps.executeUpdate();
+			 PreparedStatement stmt = connection.prepareStatement(UPDATE_VEHICLES_QUERY)) {
+			stmt.setString(1, vehicle.constructeur());
+			stmt.setString(2, vehicle.modele());
+			stmt.setInt(3, vehicle.nb_places());
+			stmt.setLong(4, vehicle.id());
+			stmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new DaoException("Error occurred in DAO while updating the vehicle.");
+			throw new DaoException("Erreur lors de la mise à jour du véhicule.");
 		}
 	}
 

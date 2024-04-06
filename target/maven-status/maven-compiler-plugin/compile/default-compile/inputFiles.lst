@@ -1,5 +1,6 @@
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Vehicle/VehicleListServlet.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Reservation/ReservationCreateServlet.java
+/Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/ui/servlet/Client/ClientUpdateServlet.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/service/ReservationService.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/model/Reservation.java
 /Users/naomi/Desktop/java/TP_java/src/main/java/com/epf/rentmanager/dao/ReservationDao.java
