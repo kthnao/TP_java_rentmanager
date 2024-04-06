@@ -50,6 +50,12 @@
                                     <div class="col-sm-10">
                                         <input type="number" class="form-control" id="seats" name="seats" placeholder="Nombre de places" value="${vehicle.isPresent() ? vehicle.get().nb_places() : ''}">
                                     </div>
+
+                                    <div class="col-sm-10">
+                                        <c:if test="${not empty requestScope.vehicleError}">
+                                                <p style="color: red;"><c:out value="${requestScope.vehicleError}" /></p>
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.box-body -->

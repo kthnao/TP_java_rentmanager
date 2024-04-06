@@ -47,12 +47,32 @@ public class VehicleUpdateServlet extends HttpServlet {
                 req.getParameter("modele"),
                 Integer.parseInt(req.getParameter("seats"))
         );
+        boolean constructeurValide = false;
+        boolean modeleValide = false;
+        boolean nbPlacesValide = false;
 
         try {
-            vehicleService.update(vehicle);
+            constructeurValide = vehicleService.constructeurNonVide(vehicle);
+            if (constructeurValide) modeleValide = vehicleService.modeleNonVide(vehicle);
+            if (modeleValide) nbPlacesValide = vehicleService.nbPlacesValide(vehicle);
+            if (nbPlacesValide) vehicleService.update(vehicle);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        resp .sendRedirect(req.getContextPath() + "/cars/list");
+        if (!constructeurValide) {
+            req.setAttribute("vehicleError", "Le véhicule doit avoir un constructeur.");
+            doGet(req, resp);
+        }
+        else if (!modeleValide) {
+            req.setAttribute("vehicleError", "Le véhicule doit avoir un modèle.");
+            doGet(req, resp);
+        }
+        else if (!nbPlacesValide) {
+            req.setAttribute("vehicleError", "Le nombre de place du véhicule doit être compris entre 9 et 2.");
+            doGet(req, resp);
+        }
+        else {
+            resp.sendRedirect(req.getContextPath() + "/cars/list");
+        }
     }
 }
