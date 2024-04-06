@@ -1,4 +1,5 @@
 com/epf/rentmanager/Configuration/AppConfiguration.class
+com/epf/rentmanager/ui/servlet/Vehicle/VehicleUpdateServlet.class
 com/epf/rentmanager/ui/servlet/Client/ClientDeleteServlet.class
 com/epf/rentmanager/exception/DaoException.class
 com/epf/rentmanager/ui/servlet/Client/ClientCreateServlet.class

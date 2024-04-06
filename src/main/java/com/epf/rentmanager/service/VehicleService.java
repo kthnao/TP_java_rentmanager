@@ -92,5 +92,14 @@ public class VehicleService {
 		}
 	}
 
+	public void update(Vehicle vehicle) throws ServiceException {
+		try {
+			vehicleDao.update(vehicle);
+		} catch (DaoException e) {
+			throw new ServiceException("Error occurred in Service while updating vehicle.");
+		}
+	}
+
+
 	
 }

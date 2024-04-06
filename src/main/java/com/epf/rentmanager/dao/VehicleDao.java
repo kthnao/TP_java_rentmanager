@@ -30,6 +30,7 @@ public class VehicleDao {
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur,modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
+	private static final String UPDATE_VEHICLES_QUERY = "UPDATE Vehicle SET constructeur = ?, modele = ?, nb_places = ? WHERE id = ?;";
 
 	public long create(Vehicle vehicle) throws DaoException {
 		if(vehicle.constructeur() == null) {
@@ -44,7 +45,7 @@ public class VehicleDao {
 			stmt.execute();
 			ResultSet resultSet = stmt.getGeneratedKeys();
 			if (resultSet.next()) {
-				int id = resultSet.getInt("id");
+				long id = resultSet.getInt("id");
 				return id;
 			}
 			return 0;
@@ -145,5 +146,19 @@ public class VehicleDao {
 			throw new DaoException("Erreur lors de la validation du nombre de places: " + e.getMessage());
 		}
 	}
+
+	public void update(Vehicle vehicle) throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection();
+			 PreparedStatement ps = connection.prepareStatement(UPDATE_VEHICLES_QUERY)) {
+			ps.setString(1, vehicle.constructeur());
+			ps.setString(2, vehicle.modele());
+			ps.setInt(3, vehicle.nb_places());
+			ps.setLong(4, vehicle.id());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new DaoException("Error occurred in DAO while updating the vehicle.");
+		}
+	}
+
 
 }
