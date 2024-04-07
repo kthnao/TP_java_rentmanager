@@ -38,36 +38,16 @@ public class ReservationDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long resId = Long.parseLong(req.getParameter("id"));
-        List<Vehicle> vehicles = new ArrayList<>();
-        List<Client> clients = new ArrayList<>();
-        List<Long> nbJours = new ArrayList<>();
-        Client client = null;
-        Vehicle vehicle = null;
-        long nbJoursTotal = 0;
         try {
-            List<Reservation> rents = reservationService.findAll();
 
-            for (Reservation rent : rents) {
-                nbJoursTotal = java.time.temporal.ChronoUnit.DAYS.between(rent.debut(), rent.fin()) + 1;
-                vehicle = vehicleService.findById(rent.vehicle_id()).get();
-                client = clientService.findById(rent.client_id()).get();
-                nbJours.add(nbJoursTotal);
-                vehicles.add(vehicle);
-                clients.add(client);
-                if (!vehicles.contains(vehicle)) {
-                    vehicles.add(vehicle);
-                }
-                if (!clients.contains(client)) {
-                    clients.add(client);
-                }
-            }
-
+            Reservation reservation = reservationService.findById(resId).get();
+            long nbJours = java.time.temporal.ChronoUnit.DAYS.between(reservation.debut(), reservation.fin()) + 1;
+            Vehicle vehicle = vehicleService.findById(reservation.vehicle_id()).get();
+            Client client = clientService.findById(reservation.client_id()).get();
 
             req.setAttribute("client", client);
             req.setAttribute("vehicle", vehicle);
-            req.setAttribute("rents", rents);
-            req.setAttribute("clients", clients);
-            req.setAttribute("vehicles", vehicles);
+            req.setAttribute("reservation", reservation);
             req.setAttribute("nbJours", nbJours);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/rents/details.jsp");

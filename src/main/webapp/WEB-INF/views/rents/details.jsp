@@ -20,12 +20,12 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <h3 class="profile-username text-center">${reservation.debut()} ${reservation.fin()}</h3>
-                            <h3 class="profile-username text-center">${reservation.id()}</h3>
+                            <h3 class="profile-username text-center">${reservation.debut()}</h3>
+                            <h3 class="profile-username text-center">${reservation.fin()}</h3>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Durée de la reservation</b> <span class="pull-right">${nbJours}</span>
+                                    <b>Duree de la reservation</b> <span class="pull-right">${nbJours} jours</span>
                                 </li>
                             </ul>
                         </div>
@@ -41,7 +41,7 @@
                             <li><a href="#cars" data-toggle="tab">Voitures</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="active tab-pane" id="rents">
+                            <div class="active tab-pane" id="users">
                                 <div class="box-body no-padding">
                                     <table class="table table-striped">
                                         <tr>
@@ -50,14 +50,14 @@
                                             <th>Email</th>
                                             <th>Naissance</th>
                                         </tr>
-                                        <c:forEach items="${users}" var="user">
+
                                             <tr>
-                                                <td>${user.id()}</td>
-                                                <td>${user.nom()} ${user.prenom()}</td>
-                                                <td>${rent.email()}</td>
-                                                <td>${rent.naissance()}</td>
+                                                <td>${client.id()}</td>
+                                                <td>${client.nom()} ${client.prenom()}</td>
+                                                <td>${client.email()}</td>
+                                                <td>${client.naissance()}</td>
                                             </tr>
-                                        </c:forEach>
+
                                     </table>
                                 </div>
                             </div>
@@ -72,14 +72,12 @@
                                                 <th>Modele</th>
                                                 <th style=>Nombre de places</th>
                                             </tr>
-                                            <c:forEach items="${vehicles}" var="vehicle">
                                                 <tr>
                                                     <td>${vehicle.id()}.</td>
                                                     <td>${vehicle.constructeur()}</td>
                                                     <td>${vehicle.modele()}</td>
                                                     <td>${vehicle.nb_places()}</td>
                                                 </tr>
-                                            </c:forEach>
                                         </table>
                                     </div>
                                 </div>
