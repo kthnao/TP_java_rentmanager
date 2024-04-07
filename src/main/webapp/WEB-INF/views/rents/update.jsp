@@ -36,7 +36,14 @@
                                     <div class="col-sm-10">
                                        <select class="form-control" id="car" name="car" placeholder="Voiture">
                                            <c:forEach items="${vehicles}" var="vehicle">
-                                               <option value="${vehicle.id()}">${vehicle.constructeur()} ${vehicle.modele()}</option>
+                                               <c:choose>
+                                                   <c:when test="${vehicle.id() eq reservation.get().vehicle_id()}">
+                                                       <option value="${vehicle.id()}" selected>${vehicle.constructeur()} ${vehicle.modele()}</option>
+                                                   </c:when>
+                                                   <c:otherwise>
+                                                       <option value="${vehicle.id()}">${vehicle.constructeur()} ${vehicle.modele()}</option>
+                                                   </c:otherwise>
+                                               </c:choose>
                                            </c:forEach>
                                        </select>
                                     </div>
@@ -46,21 +53,29 @@
                                     <div class="col-sm-10">
                                         <select class="form-control" id="client" name="client" placeholder="Client">
                                             <c:forEach items="${clients}" var="client">
-                                                <option value="${client.id()}">${client.prenom()} ${client.nom()}</option>
+                                                <c:choose>
+                                                    <c:when test="${client.id() eq reservation.get().client_id()}">
+                                                        <option value="${client.id()}" selected>${client.prenom()} ${client.nom()}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${client.id()}">${client.prenom()} ${client.nom()}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:forEach>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="begin" class="col-sm-2 control-label">Date de début</label>
+                                    <label for="begin" class="col-sm-2 control-label">Date de debut</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="begin" name="begin" placeholder="Debut" value="${reservation.isPresent() ? reservation.get().debut() : ''}" required data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <input type="text" class="form-control" id="begin" name="begin" placeholder="Debut" required data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="${reservation.isPresent() ? reservation.get().debut() : ''}">
+
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="end" class="col-sm-2 control-label">Date de fin</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="end" name="end" placeholder="Fin" value="${reservation.isPresent() ? reservation.get().fin() : ''}" required data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <input type="text" class="form-control" id="end" name="end" placeholder="Fin" required data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="${reservation.isPresent() ? reservation.get().fin() : ''}">
                                     </div>
                                 </div>
                                 <div class="form-group">
